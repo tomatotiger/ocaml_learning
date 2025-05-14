@@ -15,6 +15,25 @@ let calculate_floor (input: string) : int =
   in
   loop_input 0 0
 
+let position_to_basement (input: string) : int =
+  let length = String.length input in
+  let rec loop_input i current = 
+    if current = -1 then i 
+    else if i >= length then current
+    else 
+      let move = 
+        match input.[i] with 
+        | '(' -> 1
+        | ')' -> -1
+        | _ -> 0
+      in
+      loop_input (i+1)(current+move)
+  in
+  loop_input 1 1
+
 let () = 
   let result = calculate_floor(input) in
-  print_endline (string_of_int result)
+  print_endline (string_of_int result);
+
+  let position = position_to_basement(input) in
+  print_endline (string_of_int position)
